@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
+    "eslint": "eslint scripts/**",
     "prepare-data": "./scripts/prepare-data.mjs",
     "gen-validator-fields-proof": "./scripts/gen-validator-fields-proof.mjs"
   },

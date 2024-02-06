@@ -12,11 +12,11 @@ const {
 
 const baseUrl = 'https://cosmopolitan-crimson-glitter.ethereum-goerli.quiknode.pro/ba6360ab2932ec7e5abae33685aa68960ba97ae3';
 
-const getBlockHeader = (slot = 'head') => fetch(`${baseUrl}/eth/v1/beacon/headers/${slot}`).then((res) => res.json());
+const getBlockHeader = (slot = 'head') => fetch(`${baseUrl}/eth/v1/beacon/headers/${slot}`).then(res => res.json());
 
-const getBlock = (slot = 'head') => fetch(`${baseUrl}/eth/v2/beacon/blocks/${slot}`).then((res) => res.json());
+const getBlock = (slot = 'head') => fetch(`${baseUrl}/eth/v2/beacon/blocks/${slot}`).then(res => res.json());
 
-const getState = (slot = 'head') => fetch(`${baseUrl}/eth/v2/debug/beacon/states/${slot}`).then((res) => res.json());
+const getState = (slot = 'head') => fetch(`${baseUrl}/eth/v2/debug/beacon/states/${slot}`).then(res => res.json());
 
 const cwd = process.cwd();
 

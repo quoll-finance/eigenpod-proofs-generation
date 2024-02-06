@@ -152,10 +152,8 @@ const sharedRules = {
         }
     ],
     'no-console': ['error'],
-    // vue@3 + typescript 省略.vue比较麻烦，降级为warn
-    'import/extensions': ['warn', 'ignorePackages', Object.fromEntries(importExtensions.map(ext => [ext, 'never']))],
     // 忽略各子项目 src/** 的引用，也可以参考spa/oa/.eslintrc.js配置 moduleDirectory
-    'import/no-unresolved': ['error', { ignore: ['^src', '^server'] }],
+    'import/no-unresolved': ['error', {ignore: ['^src', '^server']}],
     //对import xx from xxx 排序
     //ref: https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/order.md
     'import/order': [
@@ -199,18 +197,6 @@ const sharedRules = {
     ]
 };
 
-const reactRules = {
-    'react/prop-types': 'off',
-    'react/display-name': 'warn',
-    'react/jsx-key': 'warn',
-    'react/jsx-indent': ['error', 4],
-    'react/jsx-indent-props': ['error', 4],
-    'react/jsx-first-prop-new-line': 'error',
-    'react/jsx-max-props-per-line': 'error',
-    'react/jsx-closing-bracket-location': 'error',
-    'react/no-unknown-property': ['error', { ignore: ['sx'] }]
-};
-
 module.exports = {
     env: {
         browser: true,
@@ -218,94 +204,33 @@ module.exports = {
         node: true
     },
     globals: {
-        __STAGE__: 'readonly'
+        argv: 'readonly',
+        $: 'readonly'
+    },
+    parserOptions: {
+        ecmaVersion: 'latest'
     },
     extends: [
         'eslint:recommended',
-        'plugin:@typescript-eslint/recommended',
-        'plugin:import/recommended',
-        'plugin:import/typescript',
-
-        // extends react
-        'plugin:react/recommended',
-        // disable react/react-in-jsx-scope
-        'plugin:react/jsx-runtime',
-        'plugin:react-hooks/recommended'
+        'plugin:import/recommended'
     ],
-    parser: '@typescript-eslint/parser',
-    // TODO type-linting
-    // ref: https://typescript-eslint.io/docs/getting-started/linting/type-linting
-    parserOptions: {},
     plugins: [
-        '@typescript-eslint',
-        'import',
-
-        // react plugins
-        'react',
-        'react-hooks'
+        'import'
     ],
     settings: {
-        'react': {
-            version: 'detect'
-        },
         'import/resolver': {
             node: {
                 extensions: importDotExtensions
-            },
-            typescript: {
-                // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
-                alwaysTryTypes: true,
-                // Multiple tsconfigs (Useful for monorepos)
-                project: [
-                    'packages/*/tsconfig.json'
-                ]
             },
             alias: {
                 map: [],
                 extensions: importDotExtensions
             }
         },
-        'import/parsers': {
-            '@typescript-eslint/parser': ['.ts', '.tsx']
-        }
     },
-    overrides: [
-        {
-            files: ['**/server/**', 'shared/frontend/config/**'],
-            rules: {
-                'no-console': 'warn',
-                'no-underscore-dangle': 'warn'
-            }
-        }
-    ],
     rules: {
         ...sharedRules,
-        ...reactRules,
-        '@typescript-eslint/member-delimiter-style': [
-            'error',
-            {
-                multiline: {
-                    delimiter: 'none', // 'none' or 'semi' or 'comma'
-                    requireLast: false
-                },
-                singleline: {
-                    delimiter: 'semi', // 'semi' or 'comma'
-                    requireLast: false
-                }
-            }
-        ],
-        '@typescript-eslint/no-this-alias': [
-            'error',
-            {
-                allowedNames: [
-                    'self',
-                    'vm'
-                ]
-            }
-        ],
-        '@typescript-eslint/no-empty-function': 'warn',
-        '@typescript-eslint/no-unused-vars': 'error',
-        '@typescript-eslint/no-explicit-any': 'off',
+        'no-console': 'warn',
         // callback-return deprecated，并且对koa middleware确实不友好
         // ref: https://eslint.org/docs/rules/callback-return
         'callback-return': 'warn',

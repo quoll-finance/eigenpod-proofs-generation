@@ -6,6 +6,10 @@ import process from 'process';
 
 import fetch from 'isomorphic-fetch';
 
+const {
+    slot
+} = argv;
+
 const baseUrl = 'https://cosmopolitan-crimson-glitter.ethereum-goerli.quiknode.pro/ba6360ab2932ec7e5abae33685aa68960ba97ae3';
 
 const getBlockHeader = (slot = 'head') => fetch(`${baseUrl}/eth/v1/beacon/headers/${slot}`).then((res) => res.json());
@@ -26,23 +30,23 @@ const writeFile = async (filename, data) => {
 };
 
 const prepareData = async () => {
-    console.log('fetching block header...');
-    const blockHeader = await getBlockHeader();
-    const slot = blockHeader.data.header.message.slot;
+    console.log(`fetching block header, slot ${slot ?? 'latest'}...`);
+    const blockHeader = await getBlockHeader(slot);
+    const slotNumber = blockHeader.data.header.message.slot;
 
-    console.log(`fetching block and state, slot ${slot}...`);
+    console.log(`fetching block and state, slot ${slotNumber}...`);
     const [
         block,
         state
     ] = await Promise.all([
-        getBlock(slot),
-        getState(slot)
+        getBlock(slotNumber),
+        getState(slotNumber)
     ]);
 
     await Promise.all([
         writeFile('block_header.json', blockHeader),
-        writeFile('block.json', state),
-        writeFile('slot.json', block)
+        writeFile('block.json', block),
+        writeFile('slot.json', state)
     ]);
 };
 

@@ -1,5 +1,7 @@
 #!/usr/bin/env zx
 
+import {PROOF_FILE_NAME} from './constants.mjs';
+
 const {
     validatorIndex,
     chainID
@@ -23,5 +25,5 @@ await $`cd .. && ./generation/generation -command WithdrawalFieldsProof \
   -oracleBlockHeaderFile "./euclid-tools/data/block_header.json" \
   -stateFile "./euclid-tools/data/slot.json" \
   -validatorIndex ${validatorIndex} \
-  -outputFile "./euclid-tools/data/withdrawal-fields-proof.json" \
+  -outputFile "./euclid-tools/data/${PROOF_FILE_NAME.WITHDRAWAL_FIELDS_PROOF}" \
   -chainID ${chainID}`;

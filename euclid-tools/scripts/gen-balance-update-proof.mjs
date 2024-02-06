@@ -19,9 +19,9 @@ console.log('Building generation executable...');
 await $`cd ../generation && go build`;
 
 console.log('Generating validator fields proof...');
-await $`cd .. && ./generation/generation -command ValidatorFieldsProof \
+await $`cd .. && ./generation/generation -command BalanceUpdateProof \
   -oracleBlockHeaderFile "./euclid-tools/data/block_header.json" \
   -stateFile "./euclid-tools/data/slot.json" \
   -validatorIndex ${validatorIndex} \
-  -outputFile "./euclid-tools/data/validator-fields-proof.json" \
+  -outputFile "./euclid-tools/data/balance-update-proof.json" \
   -chainID ${chainID}`;

@@ -6,7 +6,8 @@
   "scripts": {
     "eslint": "eslint scripts/**",
     "prepare-data": "./scripts/prepare-data.mjs",
-    "gen-validator-fields-proof": "./scripts/gen-validator-fields-proof.mjs"
+    "gen-validator-fields-proof": "./scripts/gen-validator-fields-proof.mjs",
+    "gen-balance-update-proof": "./scripts/gen-balance-update-proof.mjs"
   },
   "dependencies": {
     "isomorphic-fetch": "3.0.0",

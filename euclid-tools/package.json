@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "prepare-data": "./scripts/prepare-data.mjs",
-    "gen-proofs": "./scripts/gen-proofs.mjs"
+    "gen-validator-fields-proof": "./scripts/gen-validator-fields-proof.mjs"
   },
   "dependencies": {
     "isomorphic-fetch": "3.0.0",
